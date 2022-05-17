@@ -1,0 +1,88 @@
+{% extends "navi.html" %}
+{% block content %}
+<style>
+    .bodyclass {
+        padding: 6vh 20vw 0 20vw;
+    }
+    
+    .nopost {
+        display: flex;
+        justify-content: center;
+        margin-top: 6vh;
+    }
+
+    .postlist {
+        border: 1px solid black;
+    }
+
+    .postlist dt {
+        border: 1px solid #212529;
+        padding: 1%;
+    }
+
+    .postlist dt a {
+        text-decoration: none;
+        color: black;
+    }
+
+    .postlist dt a:hover {
+        color: #ffa5a5;
+    }
+
+    input:not(#name) {
+        background-color: #ffeef6;
+        border: 2px solid #ffa5a5;
+        padding: 16px;
+        line-height: 0;
+        border-radius: 4px;
+    }
+
+    #name {
+        border: 2px solid #868e96;
+        height: 32px;
+        border-radius: 4px;
+        padding-left: 8px;
+        line-height:0;
+    }
+    
+    .subject {
+        font-size: 1.3em;
+    }
+
+    .content {
+        margin-left: 40px;
+        margin-top: 15px;
+    }
+</style>
+
+<div class="bodyclass">
+    <div>
+        <div class="subject">
+            새로운 연예인 등록 요청 게시판
+        </div>
+        <div class="content">
+            등록을 원하는 연예인을 게시하면 관리자가 확인하고 등록해드립니다.
+            등록이 된 연예인은 게시판에서 삭제됩니다.
+        </div>
+        <hr>
+    </div>
+    <form action="{% url 'pybo:celebrity_create'%}" method="post">
+        {% csrf_token %}
+        <input type="text" name="name" id="name" rows="15" />
+        <input type="submit" value="요청" />
+    </form>
+    
+    {% if newcelebrity_list %}
+        <dl class="postlist">
+            {% for newcelebrity in newcelebrity_list %}
+                <dt>
+                    {{ newcelebrity.name }}
+                </dt>
+            {% endfor %}
+        </dl>
+    {% else %}
+        <p class="nopost">요청된 연예인이 없습니다.</p>
+    {% endif %}
+    
+</div>
+{% endblock %}

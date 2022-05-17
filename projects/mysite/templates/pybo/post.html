@@ -1,0 +1,85 @@
+{% extends 'navi.html' %} {% load static %} {% block content %}
+
+<style>
+    #wrapper {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .postbodyclass {
+        padding: 6vh 20vw 0 20vw;
+    }
+
+    .nopost {
+        display: flex;
+        justify-content: center;
+        margin-top: 6vh;
+    }
+
+    .nopost > span {
+        border: 1px solid black;
+        padding: 4px;
+    }
+
+    .postlist {
+        border: 1px solid black;
+    }
+
+    .postlist dt {
+        border: 1px solid #212529;
+        padding: 2%;
+    }
+
+    .postlist dt a {
+        text-decoration: none;
+        color: black;
+    }
+
+    .postlist dt a:hover {
+        color: #ffa5a5;
+    }
+
+    input:not(#content) {
+        background-color: #ffeef6;
+        border: 2px solid #ffa5a5;
+        padding: 16px;
+        line-height: 0;
+        border-radius: 4px;
+    }
+
+    #content {
+        border: 2px solid #868e96;
+        height: 32px;
+        border-radius: 4px;
+        padding-left: 8px;
+        line-height:0;
+    }
+</style>
+
+<div class="postbodyclass">
+    <div id="wrapper">
+        <a href="{% url 'pybo:newpost' celebrity.name %}">
+            <input type="submit" value="게시물 작성"/>
+        </a>
+        <div>
+            <input type="text" name="content" id="content" rows="25" value="언젠가 생길 검색창" />
+            <input type="submit" value="검색" />
+        </div>
+    </div>
+    {% if post_list %}
+    <dl class="postlist">
+        {% for post in post_list %}
+        <dt>
+            <a href="{% url 'pybo:detail' celebrity.name post.id %}/"> {{ post.subject }} </a><br />
+            <div class="postcontent">
+                {{ post.content }}
+            </div>
+        </dt>
+        {% endfor %}
+    </dl>
+    {% else %}
+    <p class="nopost"><span>등록된 게시물이 없습니다</span></p>
+    {% endif %}
+</div>
+
+{% endblock %}

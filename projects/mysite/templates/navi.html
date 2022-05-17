@@ -1,0 +1,204 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Sooni</title>
+    
+    
+    <style>
+        
+        @font-face {
+            font-family: 'GmarketSansMedium';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+        
+        body{
+            margin:0;
+            padding:0;
+            font-family: 'GmarketSansMedium';
+            font-size:2vh;
+            max-width:100vw;
+        }
+        
+        .bodyclass{
+            padding: 30px;
+        }
+        
+        .wrapper{
+            display:flex;
+            justify-content:space-between;
+            width: 100%;
+            height:10vh;
+            border-bottom: 3px solid #FFA5A5;
+            background-color: #ffeef6;
+        }
+        
+        .imgclass{
+            line-height: 10vh;
+        }
+        
+        .wrapper>div{
+            padding:0.2vw;
+            display:flex;
+            justify-content:start;
+        }
+        
+        .wrapper>div>div:not(.imgclass){
+            margin-top: 3vh;
+            line-height: 8vh;
+            width:12.2vmin;
+        }
+        
+        img{
+            height:80%;
+            padding:10px;
+            margin-right:10px;
+        }
+        
+        .aclass{
+            text-decoration:none;
+            color:black;
+        }
+    
+        .aclass:hover {
+          color: #FFA5A5;
+        }
+        
+        .postcontent{
+            color: #616161;
+            font-size: 0.8em;
+            margin-left:20px;
+        }
+        
+        nav ul {
+            display:flex;
+            flex-wrap:wrap;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin: 1.2em;
+            --c: #FFA5A5;
+            color: var(--c);
+            font-size: 1em;
+            border: 0.3em solid var(--c);
+            border-radius: 0.5em;
+            width: 8.5em;
+            height: 8.5em;
+            text-transform: uppercase;
+            font-weight: middle;
+            font-family: 'GmarketSansMedium';
+            letter-spacing: 0.1em;
+            line-height: 3em;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transition: 0.5s;
+            flex-grow:1;
+            flex-shrink: 0;
+        }
+
+        nav ul li span {
+            position: absolute;
+            width: 80%;
+            height: 80%;
+            background-color: var(--c);
+            transform: translateY(150%);
+            border-radius: 50%;
+            left: calc((var(--n) - 1) * 25%);
+            transition: 0.5s;
+            transition-delay: calc((var(--n) - 1) * 0.1s);
+            z-index: -1;
+            text-align:center;
+        }
+        
+        nav ul li a{
+            display:flex;
+            width:100%;
+            height:100%;
+            justify-content:center;
+            align-items:center;
+            text-decoration:none;
+            color: var(--c);
+        }
+
+        nav ul li a:hover {
+            text-decoration:none;
+            color: #fff;
+        }
+
+        nav ul li :hover span {
+            transform: translateY(0) scale(2);
+        }
+
+        nav ul li span:nth-child(1) {
+            --n: 1;
+        }
+
+        nav ul li span:nth-child(2) {
+            --n: 2;
+        }
+
+        nav ul li span:nth-child(3) {
+            --n: 3;
+        }
+
+        nav ul li span:nth-child(4) {
+            --n: 4;
+        }
+        
+        input {
+            font-size:1.8vh;
+            line-height:3vh;
+            height:3vh;
+            padding:0;
+            margin:0;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div>
+            <div class="imgclass">
+                <a href="/"><img src="{% static 'soonilogo2.png' %}"></a>
+            </div>
+            <div>
+                <a class="aclass" href="/celebrities">목록</a>
+            </div>
+            <div>
+                <a class="aclass" href="{% url 'pybo:newcel' %}">추가요청</a>
+            </div>
+        </div>
+        
+        
+        
+        <diV>
+            {% if user.is_authenticated %}
+                <div>
+                    <div>{{ user.username }}</div>
+                </div>
+                <div>
+                    <a class="aclass" href="{% url 'common:logout' %}">로그아웃</a>
+                </div>
+            {% else %}
+                <div>
+                    <a class="aclass" href="{% url 'common:login' %}">로그인</a>
+                </div>
+                <div>
+                    <a class="aclass" href="{% url 'common:signup' %}">회원가입</a>
+                </div>
+            {% endif %}
+        </diV>
+    </div>
+    
+    {% block content %}
+    {% endblock %}
+</body>
+</html>

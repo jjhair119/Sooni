@@ -1,0 +1,82 @@
+{% extends 'navi.html' %} {% load static %} {% block content %}
+
+<style>
+    .postbodyclass {
+        padding: 6vh 20vw 0 20vw;
+    }
+
+    .nopost {
+        display: flex;
+        justify-content: center;
+        margin-top: 6vh;
+    }
+
+    .postlist {
+        border: 1px solid black;
+    }
+
+    .postlist dt {
+        border: 1px solid #212529;
+        padding: 1%;
+    }
+
+    .postlist dt a {
+        text-decoration: none;
+        color: black;
+    }
+
+    .postlist dt a:hover {
+        color: #ffa5a5;
+    }
+
+    input:not(#content) {
+        font-family: 'GmarketSansMedium';
+        background-color: #ffeef6;
+        border: 2px solid #ffa5a5;
+        padding: 16px;
+        line-height: 0;
+        border-radius: 4px;
+    }
+
+    #content {
+        font-family: 'GmarketSansMedium';
+        border: 2px solid #868e96;
+        height: 32px;
+        border-radius: 4px;
+        padding-left: 8px;
+        line-height:0;
+    }
+
+    .subject {
+        font-size: 1.3em;
+    }
+
+    .content {
+        margin-left: 40px;
+        margin-top: 15px;
+    }
+</style>
+
+<div class="postbodyclass">
+    <div class="subject">{{ post.subject }}<br /></div>
+    <div class="content">{{ post.content }}<br /></div>
+    <hr />
+
+    <form action="{% url 'pybo:comment_create' celebrity.name post.id %}" method="post">
+        {% csrf_token %}
+        <input type="text" name="content" id="content" rows="15"/>
+        <input type="submit" value="댓글 등록" />
+    </form>
+
+    {% if comment_list %}
+    <dl class="postlist">
+        {% for comment in comment_list %}
+        <dt>{{ comment.content }}</dt>
+        {% endfor %}
+    </dl>
+    {% else %}
+    <p class="nopost">등록된 댓글이 없습니다.</p>
+    {% endif %}
+</div>
+
+{% endblock %}

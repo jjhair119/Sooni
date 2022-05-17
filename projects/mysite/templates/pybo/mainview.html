@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sooni</title>
+
+    <style>
+        @font-face {
+            font-family: 'RixYeoljeongdo_Regular';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2102-01@1.0/RixYeoljeongdo_Regular.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+        
+        @font-face {
+            font-family: 'GmarketSansBold';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansBold.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        body{
+            font-family: 'RixYeoljeongdo_Regular';
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .body{
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        
+        .center{
+            display:flex;
+            justify-content:center;
+        }
+
+        .d1{
+            position: absolute;
+            width: 16px;
+            height: 24px;
+            left: 240px;
+            top: 125px;
+
+            background: #000000;
+            border-radius: 300px;
+            z-index: 1;
+        }
+
+        .d2{
+            position: absolute;
+            width: 16px;
+            height: 24px;
+            left: 260px;
+            top: 125px;
+
+            background: #000000;
+            border-radius: 300px;
+            z-index: 1;
+        }
+
+        .upcircle{
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border-radius: 0px 150px 0px 0px;
+            left: 160px;
+            top: 10px;
+
+            background: #FFD8E1;
+            z-index: 0;
+        }
+
+        .dwcircle{
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border-radius: 0px 0px 0px 150px;
+            left: 10px;
+            top: 160px;
+
+            background: #FFD8E1;
+            z-index: 0;
+        }
+
+        .upcir{
+            position: absolute;
+            background-color: #FFD8E1;
+            width: 170px;
+            height: 150px;
+            left: 65px;
+            top: 10px;
+            
+            border-radius: 150px;
+            z-index: 0;
+        }
+
+        .dwcir{
+            position: absolute;
+            background-color: #FFD8E1;
+            width: 170px;
+            height: 150px;
+            left: 85px;
+            top: 160px;
+
+            border-radius: 150px;
+            z-index: 0;
+        }
+
+        .circle{
+            position: relative;
+            background-color: #FFA5A5;
+            width: 320px;
+            height: 320px;
+            border-radius: 300px;
+            z-index: -1;
+        }
+        
+        .scircle{
+            position:relative;
+            width: 280px;
+            height: 130px;
+        }
+
+        .scircle>div:first-child{
+            position: absolute;
+            background-color: #FFA5A5;
+            width: 130px;
+            height: 130px;
+
+            left: 20px;
+            top: 190px;
+            border-radius: 300px;
+        }
+
+        .scircle>div:last-child{
+            position: absolute;
+            background-color: #FFA5A5;
+            width: 130px;
+            height: 130px;
+
+            left: 170px;
+            top: 190px;
+            border-radius: 300px;
+        }
+
+        .square{
+            position: relative;
+            width: 130px;
+            height: 130px;
+            left: 40px;
+            top: 190px;
+        }
+
+        .square>div:first-child{
+            position: absolute;
+            background-color: #FFA5A5;
+            width: 130px;
+            height: 130px;
+            
+            border-radius: 50px 50px 0px 0px;
+            z-index: 1;
+        }
+
+        .square>div:last-child{
+            position: absolute;
+            background-color: #ffeef6;
+            width: 50px;
+            height: 90px;
+
+            left: 40px;
+            top: 40px;
+
+            border-radius: 20px 20px 0px 0px;
+            z-index: 2;
+        }
+
+        .i{
+            position: relative;
+            width: 40px;
+            height: 200px;
+            margin-left: 60px;
+            margin-top: 140px;
+        }
+
+        .i>div:first-child{
+            background-color: #FFA5A5;
+            width: 40px;
+            height: 40px;
+
+            border-radius: 30px;
+            z-index: 1;
+        }
+
+        .i>div:last-child{
+            background-color: #FFA5A5;
+            height: 120px;
+            width: 40px;
+
+            margin-top: 20px;
+
+            z-index: 1;
+        }
+
+        .title{
+            color: #fff;
+            text-shadow: -3px 0 #FFA5A5, 0 3px #FFA5A5, 3px 0 #FFA5A5, 0 -3px #FFA5A5;
+            font-size: 2vw;
+            margin: 60px;
+        }
+
+        .color{
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            z-index: -300;
+        }
+
+        .color>div{
+            height: 80vh;
+            padding-top: 10vh;
+        }
+
+        .color>div>div{
+            height: 100%;
+            background-color: #ffeef6;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            --c: #FFA5A5;
+            color: var(--c);
+            font-size: 1.5em;
+            border: 0.3em solid var(--c);
+            border-radius: 0.5em;
+            width: 15vw;
+            height: 5vh;
+            text-transform: uppercase;
+            font-weight: middle;
+            font-family: 'RixYeoljeongdo_Regular';
+            letter-spacing: 0.1em;
+            text-align: center;
+            line-height: 5vh;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transition: 0.5s;
+        }
+
+        nav ul li span {
+            position: absolute;
+            width: 25%;
+            height: 100%;
+            background-color: var(--c);
+            transform: translateY(150%);
+            border-radius: 50%;
+            left: calc((var(--n) - 1) * 25%);
+            transition: 0.5s;
+            transition-delay: calc((var(--n) - 1) * 0.1s);
+            z-index: -1;
+        }
+
+        nav ul li:hover {
+            color: #fff;
+        }
+
+        nav ul li:hover span {
+            transform: translateY(0) scale(2);
+        }
+
+        nav ul li span:nth-child(1) {
+            --n: 1;
+        }
+
+        nav ul li span:nth-child(2) {
+            --n: 2;
+        }
+
+        nav ul li span:nth-child(3) {
+            --n: 3;
+        }
+
+        nav ul li span:nth-child(4) {
+            --n: 4;
+        }
+
+        a{
+            text-decoration:none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="body">
+        <div class="center">
+            <div class="circle">
+                <div class="d1"></div>
+                <div class="d2"></div> 
+        
+                <div class="upcircle"></div>
+                <div class="dwcircle"></div>
+        
+                <div class="upcir"></div>
+                <div class="dwcir"></div>
+            </div>
+        
+            <div class="scircle">
+                <div></div>
+                <div></div>
+            </div>
+        
+            <div class="square">
+                <div></div>
+                <div></div>
+            </div>
+        
+            <div class="i">
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+        <div class="title">빠순이들의 대화장 : Sooni</div>
+        <nav>
+            <a href="http://127.0.0.1:8000/celebrities/">
+                <ul>
+                    <li>
+                        바로가기
+                        <span></span><span></span><span></span><span></span>
+                    </li>
+                </ul>
+            </a>
+        </nav>
+    </div>
+
+    
+    <div class="color">
+        <div>
+            <div></div>
+        </div>
+    </div>
+    
+    
+</body>
+</html>

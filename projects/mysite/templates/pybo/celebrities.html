@@ -1,0 +1,24 @@
+{% extends 'navi.html' %}
+{% load static %}
+{% block content %}
+
+<div class="bodyclass">
+    {% if celebrity_list %}
+        <nav>
+            <ul>
+                {% for celebrity in celebrity_list %}
+                    <li>
+                        <a href="{% url 'pybo:post' celebrity.name %}">
+                            {{ celebrity.name }}
+                            <span></span><span></span><span></span><span></span>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </nav>
+    {% else %}
+        <p>등록된 연예인이 없습니다.</p>
+    {% endif %}
+</div>    
+    
+{% endblock %}

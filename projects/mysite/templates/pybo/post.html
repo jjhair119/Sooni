@@ -70,7 +70,7 @@
     <dl class="postlist">
         {% for post in post_list %}
         <dt>
-            <a href="{% url 'pybo:detail' celebrity.name post.id %}/"> {{ post.subject }} </a><br />
+            <a href="{% url 'pybo:detail' celebrity.name post.id %}"> {{ post.subject }} </a><br />
             <div class="postcontent">
                 {{ post.content }}
             </div>

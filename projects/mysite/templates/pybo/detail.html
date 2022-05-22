@@ -48,7 +48,18 @@
     }
 
     .subject {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    #subject{
         font-size: 1.3em;
+    }
+
+    .username{
+        font-size: 1em;
+        align-self: center;
     }
 
     .content {
@@ -58,7 +69,7 @@
 </style>
 
 <div class="postbodyclass">
-    <div class="subject">{{ post.subject }}<br /></div>
+    <div class="subject"><a id="subject">{{ post.subject }}</a><a class="username">{{ post.author.username }}</a></div>
     <div class="content">{{ post.content }}<br /></div>
     <hr />
 
@@ -71,7 +82,7 @@
     {% if comment_list %}
     <dl class="postlist">
         {% for comment in comment_list %}
-        <dt>{{ comment.content }}</dt>
+        <dt>{{ comment.author.username }} : {{ comment.content }}</dt>
         {% endfor %}
     </dl>
     {% else %}

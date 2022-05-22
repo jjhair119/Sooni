@@ -2,6 +2,87 @@
 {% load static %}
 {% block content %}
 
+<style>
+    nav ul {
+            display:flex;
+            flex-wrap:wrap;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin: 1.2em;
+            --c: #FFA5A5;
+            color: var(--c);
+            font-size: 1em;
+            border: 0.3em solid var(--c);
+            border-radius: 0.5em;
+            width: 8.5em;
+            height: 8.5em;
+            text-transform: uppercase;
+            font-weight: middle;
+            font-family: 'GmarketSansMedium';
+            letter-spacing: 0.1em;
+            line-height: 3em;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transition: 0.5s;
+            flex-grow:1;
+            flex-shrink: 0;
+        }
+
+        nav ul li span {
+            position: absolute;
+            width: 80%;
+            height: 80%;
+            background-color: var(--c);
+            transform: translateY(150%);
+            border-radius: 50%;
+            left: calc((var(--n) - 1) * 25%);
+            transition: 0.5s;
+            transition-delay: calc((var(--n) - 1) * 0.1s);
+            z-index: -1;
+            text-align:center;
+        }
+        
+        nav ul li a{
+            display:flex;
+            width:100%;
+            height:100%;
+            justify-content:center;
+            align-items:center;
+            text-decoration:none;
+            color: var(--c);
+        }
+
+        nav ul li a:hover {
+            text-decoration:none;
+            color: #fff;
+        }
+
+        nav ul li :hover span {
+            transform: translateY(0) scale(2);
+        }
+
+        nav ul li span:nth-child(1) {
+            --n: 1;
+        }
+
+        nav ul li span:nth-child(2) {
+            --n: 2;
+        }
+
+        nav ul li span:nth-child(3) {
+            --n: 3;
+        }
+
+        nav ul li span:nth-child(4) {
+            --n: 4;
+        }
+</style>
+
 <div class="bodyclass">
     {% if celebrity_list %}
         <nav>

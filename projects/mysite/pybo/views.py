@@ -4,6 +4,7 @@ from .models import Post
 from .models import Comment
 from .models import NewCelebrity
 from django.utils import timezone
+from django.contrib.auth.decorators import login_required
 
 
 def index(request):
@@ -27,15 +28,19 @@ def detail(request, celebrity_name, post_id):
     context = {'comment_list': comment_list, 'post': post, 'celebrity' : celebrity}
     return render(request, 'pybo/detail.html', context)
 
+@login_required(login_url='common:login')
 def comment_create(request, celebrity_name, post_id):
     post = get_object_or_404(Post, pk=post_id)
     comment = Comment(post=post, content=request.POST.get('content'), create_date=timezone.now())
+    comment.author = request.user
     comment.save()
     return redirect('pybo:detail', celebrity_name=celebrity_name, post_id=post.id)
 
+@login_required(login_url='common:login')
 def post_create(request, celebrity_name):
     celebrity = get_object_or_404(Celebrity, name=celebrity_name)
     post = Post(celebrity=celebrity, subject=request.POST.get('subject'), content=request.POST.get('content'), create_date=timezone.now())
+    post.author = request.user
     post.save()
     return redirect('pybo:detail', celebrity_name=celebrity_name, post_id=post.id)
 
@@ -52,3 +57,9 @@ def celebrity_create(request):
     newcelebrity = NewCelebrity(name=request.POST.get('name'))
     newcelebrity.save()
     return redirect('pybo:newcel')
+
+def celebrityList_create(request):
+    celebrity = Celebrity(name=request)
+
+def manager(request):
+    return render(request, 'pybo/manager.html')

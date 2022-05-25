@@ -18,6 +18,9 @@
     .postlist dt {
         border: 1px solid #212529;
         padding: 1%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
 
     .postlist dt a {
@@ -76,7 +79,14 @@
         <dl class="postlist">
             {% for newcelebrity in newcelebrity_list %}
                 <dt>
-                    {{ newcelebrity.name }}
+                    <div>{{ newcelebrity.name }}</div>
+                    {% if user.is_superuser %}
+                        <div>
+                            <input type="button" value="등록">
+                            <input type="button" value="삭제">
+                        </div>
+                    {% else %}
+                    {% endif %}
                 </dt>
             {% endfor %}
         </dl>

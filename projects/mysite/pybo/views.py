@@ -1,3 +1,4 @@
+from warnings import catch_warnings
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Celebrity
 from .models import Post
@@ -5,6 +6,8 @@ from .models import Comment
 from .models import NewCelebrity
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import MultipleObjectsReturned
+from django.contrib import messages
 
 
 def index(request):
@@ -54,12 +57,36 @@ def newpost(request, celebrity_name):
     return render(request, 'pybo/newpost.html', context)
 
 def celebrity_create(request):
-    newcelebrity = NewCelebrity(name=request.POST.get('name'))
-    newcelebrity.save()
+    try :
+        NewCelebrity.objects.get(name=request.POST.get('name'))
+        messages.warning(request, "이미 요청된 연예인입니다.")
+    except :
+        newcelebrity = NewCelebrity(name=request.POST.get('name'))
+        newcelebrity.save()
     return redirect('pybo:newcel')
 
 def celebrityList_create(request):
-    celebrity = Celebrity(name=request)
+    try :
+        Celebrity.objects.get(name=request.POST.get('name'))
+    except :
+        celebrity = Celebrity(name=request.POST.get('name'))
+        celebrity.save()
+    delcelname = request.POST.get('name')
+    try:
+        delcel = NewCelebrity.objects.get(name=delcelname)
+    except MultipleObjectsReturned:
+        delcel = NewCelebrity.objects.filter(name=delcelname).first()
+    delcel.delete()
+    return redirect('pybo:newcel')
+
+def celebrityList_del(request):
+    delcelname = request.POST.get('name')
+    try:
+        delcel = NewCelebrity.objects.get(name=delcelname)
+    except MultipleObjectsReturned:
+        delcel = NewCelebrity.objects.filter(name=delcelname).first()
+    delcel.delete()
+    return redirect('pybo:newcel')
 
 def manager(request):
     return render(request, 'pybo/manager.html')

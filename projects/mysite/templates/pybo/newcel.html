@@ -32,7 +32,7 @@
         color: #ffa5a5;
     }
 
-    input:not(#name) {
+    input:not(#name, .flaginput) {
         background-color: #ffeef6;
         border: 2px solid #ffa5a5;
         padding: 16px;
@@ -56,6 +56,20 @@
         margin-left: 40px;
         margin-top: 15px;
     }
+
+    .manager_button {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .manager_button form{
+        margin-right: 3%;
+    }
+
+    .warningMessage{
+        color:red;
+        font-size:0.8em;
+    }
 </style>
 
 <div class="bodyclass">
@@ -69,6 +83,14 @@
         </div>
         <hr>
     </div>
+
+    <div class="warningMessage">
+        {% for message in messages %}
+            {{ message.tag }}
+            {{ message }}
+        {% endfor %}
+    </div>
+
     <form action="{% url 'pybo:celebrity_create'%}" method="post">
         {% csrf_token %}
         <input type="text" name="name" id="name" rows="15" />
@@ -81,9 +103,17 @@
                 <dt>
                     <div>{{ newcelebrity.name }}</div>
                     {% if user.is_superuser %}
-                        <div>
-                            <input type="button" value="등록">
-                            <input type="button" value="삭제">
+                        <div class="manager_button">
+                            <form action="{% url 'pybo:celebrityList_create' %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="name" value="{{ newcelebrity.name }}">
+                                <input type="submit" value="등록">
+                            </form>
+                            <form action="{% url 'pybo:celebrityList_del' %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="name" value="{{ newcelebrity.name }}">
+                                <input type="submit" value="삭제">
+                            </form>
                         </div>
                     {% else %}
                     {% endif %}

@@ -13,6 +13,8 @@ urlpatterns = [
     path('<str:celebrity_name>/newpost', views.newpost, name='newpost'),
     path('<str:celebrity_name>/newpost/create', views.post_create, name='post_create'),
     path('new/celebrity/create', views.celebrity_create, name='celebrity_create'),
+    path('new/celebrityList/create', views.celebrityList_create, name='celebrityList_create'),
+    path('new/celebrityList/delete', views.celebrityList_del, name='celebrityList_del'),
     path('celebrity/new/', views.newcel, name='newcel'),
     path('manager/admin/09uwqeojiqweflkj2308213oi23494', views.manager, name='manager'),
 ]

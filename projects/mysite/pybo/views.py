@@ -89,4 +89,21 @@ def celebrityList_del(request):
     return redirect('pybo:newcel')
 
 def manager(request):
-    return render(request, 'pybo/manager.html')
+    celebrity_list = Celebrity.objects.all()
+    context = {'celebrity_list': celebrity_list}
+    return render(request, 'pybo/manager.html', context)
+
+def celebrity_del(request):
+    delcelname = request.POST.get('name')
+    delcel = Celebrity.objects.filter(name=delcelname)
+    delcel.delete()
+    return redirect('pybo:manager')
+
+def celebrityList_createM(request):
+    try :
+        Celebrity.objects.get(name=request.POST.get('name'))
+        messages.warning(request, "이미 등록된 연예인입니다.")
+    except :
+        celebrity = Celebrity(name=request.POST.get('name'))
+        celebrity.save()
+    return redirect('pybo:manager')

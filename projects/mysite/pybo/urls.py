@@ -17,4 +17,6 @@ urlpatterns = [
     path('new/celebrityList/delete', views.celebrityList_del, name='celebrityList_del'),
     path('celebrity/new/', views.newcel, name='newcel'),
     path('manager/admin/09uwqeojiqweflkj2308213oi23494', views.manager, name='manager'),
+    path('manager/admin/09uwqeojiqweflkj2308213oi23494/cel/del', views.celebrity_del, name='celebrity_del'),
+    path('manager/admin/09uwqeojiqweflkj2308213oi23494/cel/cre', views.celebrityList_createM, name='celebrityList_createM'),
 ]

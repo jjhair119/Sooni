@@ -2,12 +2,131 @@
 
 <style>
     .postbodyclass {
-        padding: 6vh 20vw 0 20vw;
+        padding: 6vh 10vw 0 10vw;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .leftWrapper{
+        width: 32%;
+        border: 1px solid #ffa5a5;
+        border-radius: 0.2em;
+        padding: 0.2em;
+    }
+
+    .centerWrapper{
+        width: 32%;
+        border: 1px solid #ffa5a5;
+        border-radius: 0.2em;
+        padding: 0.2em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .centerWrapper>div:first-child{
+        margin-bottom: 0.2em;
+    }
+
+    .rightWrapper{
+        width: 32%;
+        border: 1px solid #ffa5a5;
+        border-radius: 0.2em;
+        padding: 0.2em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    ol{
+        padding: 1.5%;
+        margin-bottom: 0.2em;
+        display: flex;
+        justify-content: space-between;
+        border: 1px solid #ffa5a5;
+        border-radius: 0.2em;
+        align-items: center;
+    }
+
+    input:not(#name, .flaginput) {
+        background-color: #ffeef6;
+        border: 2px solid #ffa5a5;
+        padding: 16px;
+        line-height: 0;
+        border-radius: 4px;
+    }
+
+    ul{
+        margin-block-start: 0px;
+        margin-block-end: 0px;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+        padding-inline-start: 0px;
+    }
+
+    ol:last-child{
+        margin-bottom: 0 !important;
+    }
+
+    #name {
+        border: 2px solid #868e96;
+        border-radius: 4px;
+        line-height: 0;
+        padding-left: 8px;
+    }
+
+    .warningMessage{
+        color: red;
+        border-radius: 0.2em;
     }
 </style>
 
 <div class="postbodyclass">
-    보류
+    <div class="leftWrapper">
+        <div class="celebrityWrapper">
+            {% if celebrity_list %}
+                <ul>
+                    {% for celebrity in celebrity_list %}
+                        <ol>
+                            <div>
+                                - {{ celebrity.name }}
+                            </div>
+                            <div>
+                                <form action="{% url 'pybo:celebrity_del' %}" method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="name" value="{{ celebrity.name }}">
+                                    <input type="submit" value="삭제">
+                                </form>
+                            </div>
+                        </ol>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>등록된 연예인이 없습니다.</p>
+            {% endif %}
+        </div>
+    </div>
+    <div class="centerWrapper">
+        <div>
+            새로운 연예인 등록
+        </div>
+        <form action="{% url 'pybo:celebrityList_createM' %}" method="post">
+            {% csrf_token %}
+            <input type="text" name="name" id="name"">
+            <input type="submit" value="등록">
+        </form>
+        <div class="warningMessage">
+            {% for message in messages %}
+                {{ message.tag }}
+                {{ message }}
+            {% endfor %}
+        </div>
+    </div>
+    <div class="rightWrapper">
+        <div>신고게시물</div>
+    </div>
 </div>
 
 {% endblock %}
